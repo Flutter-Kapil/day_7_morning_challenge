@@ -75,18 +75,19 @@ main() {
       List.generate(boardSize, (_) => List.filled(boardSize, ' '));
   String input;
   printBoard(board);
-
+  var user = 'x';
   for (int i = 1; i < 25; i++) {
-    if (i % 2 == 0) {
+    if (user == 'o') {
       print("enter the move for O");
       input = stdin.readLineSync();
       if (board[boardRow(input)][boardCol(input)] == 'O' ||
           board[boardRow(input)][boardCol(input)] == 'X') {
         print('wrong input, please try again');
-        break;
+        continue;
       }
       board[boardRow(input)][boardCol(input)] = 'O';
       printBoard(board);
+      user = 'x';
     } else {
       print("enter the move for X");
       input = stdin.readLineSync();
@@ -95,9 +96,12 @@ main() {
         print('wrong input, please try again');
         continue;
       }
+      print("value of i $i inside X and outside validation");
       board[boardRow(input)][boardCol(input)] = 'X';
       printBoard(board);
+      user = 'o';
     }
+    print("value of i $i inside and end of main for loop");
   }
 
 //  printBoard(board);
@@ -119,19 +123,8 @@ String rowToString(List<String> row) {
 
 int boardRow(String userInput) {
   int row;
-  int col;
-  dynamic a = userInput[0];
   dynamic b = userInput[1];
 
-  if (a == 'A') {
-    col = 0;
-  }
-  if (a == 'B') {
-    col = 1;
-  }
-  if (a == 'C') {
-    col = 2;
-  }
   if (b == '1') {
     row = 0;
   }
@@ -141,16 +134,14 @@ int boardRow(String userInput) {
   if (b == '3') {
     row = 2;
   }
-  print("row is $row and col is $col");
+//  print("row is $row and col is $col");
 
   return row;
 }
 
 int boardCol(String userInput) {
-  int row;
   int col;
   dynamic a = userInput[0];
-  dynamic b = userInput[1];
 
   if (a == 'A') {
     col = 0;
@@ -161,16 +152,8 @@ int boardCol(String userInput) {
   if (a == 'C') {
     col = 2;
   }
-  if (b == '1') {
-    row = 0;
-  }
-  if (b == '2') {
-    row = 1;
-  }
-  if (b == '3') {
-    row = 3;
-  }
-  print("row is $row and col is $col");
+
+//  print("row is $row and col is $col");
 
   return col;
 }
