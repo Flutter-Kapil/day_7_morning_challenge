@@ -1,4 +1,3 @@
-
 // Last time you wrote PrintBoard function which takes in the board and prints it to the console
 // Today you have to take user input and populate the Board at required location
 
@@ -65,17 +64,43 @@
 
 // HINT: to get string character you can use [], example String name ='Arnav'; name[0] gives 'A'
 
-
 // Challenge 2
 // Validate the move
 // In case if there is already an entry on board print invalid move
+import 'dart:io';
 
 main() {
   var boardSize = 3;
   List<List<String>> board =
-  List.generate(boardSize, (_) => List.filled(boardSize, ' '));
+      List.generate(boardSize, (_) => List.filled(boardSize, ' '));
+  String input;
+  printBoard(board);
 
+  for (int i = 1; i < 25; i++) {
+    if (i % 2 == 0) {
+      print("enter the move for O");
+      input = stdin.readLineSync();
+      if (board[boardRow(input)][boardCol(input)] == 'O' ||
+          board[boardRow(input)][boardCol(input)] == 'X') {
+        print('wrong input, please try again');
+        break;
+      }
+      board[boardRow(input)][boardCol(input)] = 'O';
+      printBoard(board);
+    } else {
+      print("enter the move for X");
+      input = stdin.readLineSync();
+      if (board[boardRow(input)][boardCol(input)] == 'O' ||
+          board[boardRow(input)][boardCol(input)] == 'X') {
+        print('wrong input, please try again');
+        continue;
+      }
+      board[boardRow(input)][boardCol(input)] = 'X';
+      printBoard(board);
+    }
+  }
 
+//  printBoard(board);
 }
 
 void printBoard(List<List<String>> board) {
@@ -90,4 +115,62 @@ void printBoard(List<List<String>> board) {
 
 String rowToString(List<String> row) {
   return row.map((String val) => ' $val ').join('|');
+}
+
+int boardRow(String userInput) {
+  int row;
+  int col;
+  dynamic a = userInput[0];
+  dynamic b = userInput[1];
+
+  if (a == 'A') {
+    col = 0;
+  }
+  if (a == 'B') {
+    col = 1;
+  }
+  if (a == 'C') {
+    col = 2;
+  }
+  if (b == '1') {
+    row = 0;
+  }
+  if (b == '2') {
+    row = 1;
+  }
+  if (b == '3') {
+    row = 2;
+  }
+  print("row is $row and col is $col");
+
+  return row;
+}
+
+int boardCol(String userInput) {
+  int row;
+  int col;
+  dynamic a = userInput[0];
+  dynamic b = userInput[1];
+
+  if (a == 'A') {
+    col = 0;
+  }
+  if (a == 'B') {
+    col = 1;
+  }
+  if (a == 'C') {
+    col = 2;
+  }
+  if (b == '1') {
+    row = 0;
+  }
+  if (b == '2') {
+    row = 1;
+  }
+  if (b == '3') {
+    row = 3;
+  }
+  print("row is $row and col is $col");
+
+  return col;
 }
